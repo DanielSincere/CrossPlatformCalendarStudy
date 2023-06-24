@@ -1,0 +1,26 @@
+name: Test
+
+on:
+  push:
+
+jobs:
+  test-linux:
+    name: Test on Ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      - uses: swift-actions/setup-swift@v1
+        with:
+          swift-version: "5.8"
+      - run: swift --version
+      - uses: actions/checkout@v3
+      - run: swift test
+  test-mac:
+    name: Test on Mac
+    runs-on: macos-12
+    steps:
+    - uses: swift-actions/setup-swift@v1
+      with:
+        swift-version: "5.8"
+    - run: swift --version
+    - uses: actions/checkout@v3
+    - run: swift test
