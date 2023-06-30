@@ -6,15 +6,20 @@ extension Date {
     var calendar = Calendar(identifier: .gregorian)
     calendar.locale = Locale(identifier: "en-US")
     calendar.timeZone = TimeZone(identifier: "America/New_York")!
-    let components = calendar.dateComponents([.minute, .hour, .day, .weekOfYear, .month, .year], from: self, to: now)
+    let minute = calendar.dateComponents([.minute], from: self, to: now).minute ?? 0
+    let hour = calendar.dateComponents([.hour], from: self, to: now).hour ?? 0
+    let day = calendar.dateComponents([.day], from: self, to: now).day ?? 0
+    let weekOfYear = calendar.dateComponents([.weekOfYear], from: self, to: now).weekOfYear ?? 0
+    let month = calendar.dateComponents([.month], from: self, to: now).month ?? 0
+    let year = calendar.dateComponents([.year], from: self, to: now).year ?? 0
 
-    if let year = components.year, year != 0 {
+    if year != 0 {
       return format(year: year)
-    } else if let month = components.month, month != 0 {
+    } else if month != 0 {
       return format(month: month)
-    } else if let weekOfYear = components.weekOfYear, weekOfYear != 0 {
+    } else if weekOfYear != 0 {
       return format(week: weekOfYear)
-    } else if let day = components.day, day != 0 {
+    } else if day != 0 {
       return format(day: day)
     } else {
       if self < now {
